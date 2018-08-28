@@ -9,38 +9,26 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $("#but1").click(function(){
-                getjson($("#but1").val());
+                var url = "rsa-generator?keySize="+$("#but1").val();
+                getjson(url);
             });
 
             $("#but2").click(function(){
-                getjson($("#but2").val());
-            });
-            $("#but3").click(function(){
-                $("#mydiv").show();
+                var url = "rsa-generator?keySize="+$("#but2").val();
+                getjson(url);
             });
             $("#uploadPriKey").click(function(){
-                var priKeyData = $("#priKeyData").val();
-                var url = "http://localhost:8081/rsa-priKey?priKey=" + priKeyData
-                $.getJSON(url,function(data){
-                    $("#priKey").html(data.privateKey);
-                    $("#pubKey").html(data.publicKey);
-                    $("#publicKeyModulu").html(data.publicKeyModulus);
-                    $("#publicExponent").html(data.publicKeyExponent);
-                    $("#privateKeyModulu").html(data.privateKeyModulus);
-                    $("#privateExponent").html(data.privateKeyExponent);
-                })
+                var url = "rsa-priKey?priKey=" + $("#priKeyData").val()
+                getjson(url);
                 $("#modelCloseBtn").click();
 
             });
         });
 
-        function getjson(keySize) {
-            var url = "http://localhost:8081/rsa-generator?keySize="+keySize;
+        function getjson(url) {
             $.getJSON(url,function(data){
-                var privateKey = data.privateKey;
-                var publicKey = data.publicKey;
-                $("#priKey").html(privateKey);
-                $("#pubKey").html(publicKey);
+                $("#priKey").html(data.privateKey);
+                $("#pubKey").html(data.publicKey);
                 $("#publicKeyModulu").html(data.publicKeyModulus);
                 $("#publicExponent").html(data.publicKeyExponent);
                 $("#privateKeyModulu").html(data.privateKeyModulus);
