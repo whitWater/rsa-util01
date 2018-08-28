@@ -1,0 +1,10 @@
+[core]
+	bare = true
+	repositoryformatversion = 0
+	filemode = false
+	symlinks = false
+	ignorecase = true
+[remote "origin"]
+	url = git@github.com:Desparedo/rsa-util01.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+	puttykeyfile = D:\\ums\\tools\\desparedo.ppk

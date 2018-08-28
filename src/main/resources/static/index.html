@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RSA工具</title>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("#but1").click(function(){
+            var keySize = $("#but1").val();
+            var url = "http://localhost:8081/rsa-generator?keySize="+keySize
+            $.getJSON(url,function(data){
+                var privateKey = data.privateKey;
+                var publicKey = data.publicKey;
+                $("#priKey").html(privateKey);
+                $("#pubKey").html(publicKey);
+            })
+        });
+
+        $("#but2").click(function(){
+            var keySize = $("#but2").val();
+            var url = "http://localhost:8081/rsa-generator?keySize="+keySize
+            $.getJSON(url,function(data){
+                var privateKey = data.privateKey;
+                var publicKey = data.publicKey;
+                $("#priKey").html(privateKey);
+                $("#pubKey").html(publicKey);
+            })
+        });
+
+
+        $("#but3").click(function(){
+            $("#mydiv").show();
+        });
+
+        $("#uploadPriKey").click(function(){
+            var priKeyData = $("#priKeyData").val();
+            var url = "http://localhost:8081/rsa-priKey?priKey=" + priKeyData
+            $.getJSON(url,function(data){
+                var privateKey = data.privateKey;
+                var publicKey = data.publicKey;
+                $("#priKey").html(privateKey);
+                $("#pubKey").html(publicKey);
+                $("#mydiv").hide();
+            })
+        });
+    });
+    </script>
+</head>
+<body>
+    <button id="but1" type="submit" value="1024">生成RSA密钥1024</button>
+    <button id="but2" type="submit" value="2048">生成RSA密钥2048</button>
+    <button type="submit" id="but3">
+        上传私钥
+    </button>
+
+    <table>
+        <tr>
+            <th>私钥</th>
+            <th>公钥</th>
+        </tr>
+        <tr>
+            <td>
+                <textarea id="priKey" cols="80" rows="20" readonly="readonly">Let privateKey this text</textarea>
+            </td>
+            <td>
+                <textarea id="pubKey" cols="80" rows="20" readonly="readonly">Let publicKey this text</textarea>
+            </td>
+        </tr>
+    </table>
+
+
+    <div id="mydiv" style="display:none;">
+        <p>
+            <textarea id="priKeyData" cols="80" rows="20">copy privateKey this text</textarea>
+        </p>
+
+        <button type="button" id="uploadPriKey">确定</button>
+    </div>
+
+</body>
+</html>
