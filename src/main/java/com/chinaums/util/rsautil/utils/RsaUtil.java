@@ -49,6 +49,22 @@ public class RsaUtil {
      * 获取私钥的key
      */
     private static final String PRIVATE_KEY = "RSAPrivateKey";
+    /**
+     *私钥的模
+     */
+    public static final String PRIVATE_KEY_MODULE = "privateKeyModulus";
+    /**
+     *私钥的指数
+     */
+    public static final String PRIVATE_KEY_EXPONENT = "privateKeyExponent";
+    /**
+     *公钥的模
+     */
+    public static final String PUBLIC_KEY_MODULE = "publicKeyModulus";
+    /**
+     *公钥的指数
+     */
+    public static final String PUBLIC_KEY_EXPONENT = "publicKeyExponent";
 
     /** *//**
      * RSA最大加密明文大小
@@ -60,11 +76,13 @@ public class RsaUtil {
      */
     private static final int MAX_DECRYPT_BLOCK = 128;
 
+
+
     /** *//**
      * <p>
      * 生成密钥对(公钥和私钥)
      * </p>
-     *
+
      * @return
      * @throws Exception
      */
@@ -90,6 +108,10 @@ public class RsaUtil {
         Map<String, Object> keyMap = new HashMap<String, Object>(2);
         keyMap.put(PUBLIC_KEY, publicKey);
         keyMap.put(PRIVATE_KEY, privateKey);
+        keyMap.put(PRIVATE_KEY_MODULE, privateKey.getModulus().toString());
+        keyMap.put(PRIVATE_KEY_EXPONENT, privateKey.getPrivateExponent().toString());
+        keyMap.put(PUBLIC_KEY_MODULE, publicKey.getModulus().toString());
+        keyMap.put(PUBLIC_KEY_EXPONENT, publicKey.getPublicExponent().toString());
         getPublicKeyFromPublicModules(publicModulus);
         return keyMap;
     }

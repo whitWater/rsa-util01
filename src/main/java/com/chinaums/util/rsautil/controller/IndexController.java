@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.math.BigInteger;
-import java.security.PrivateKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.HashMap;
@@ -31,6 +30,10 @@ public class IndexController {
         Map<String, Object> map = RsaUtil.genKeyPair(Integer.parseInt(keySize));
         json.put("privateKey", RsaUtil.getPrivateKey(map));
         json.put("publicKey", RsaUtil.getPublicKey(map));
+        json.put(RsaUtil.PRIVATE_KEY_EXPONENT,map.get(RsaUtil.PRIVATE_KEY_EXPONENT));
+        json.put(RsaUtil.PRIVATE_KEY_MODULE,map.get(RsaUtil.PRIVATE_KEY_MODULE));
+        json.put(RsaUtil.PUBLIC_KEY_MODULE,map.get(RsaUtil.PUBLIC_KEY_MODULE));
+        json.put(RsaUtil.PUBLIC_KEY_EXPONENT,map.get(RsaUtil.PUBLIC_KEY_EXPONENT));
         Map<String,String> result = new HashMap<>();
         result.putAll(json);
         return result;
@@ -48,6 +51,11 @@ public class IndexController {
         RSAPublicKey publicKey = (RSAPublicKey) RsaUtil.getPublicKeyFromPublicModules(priModulus);
         result.put("privateKey", priKey);
         result.put("publicKey", Base64Utils.encode(publicKey.getEncoded()));
+        result.put(RsaUtil.PRIVATE_KEY_MODULE, privateKey.getModulus().toString());
+        result.put(RsaUtil.PRIVATE_KEY_EXPONENT, privateKey.getPrivateExponent().toString());
+        result.put(RsaUtil.PUBLIC_KEY_MODULE, publicKey.getModulus().toString());
+        result.put(RsaUtil.PUBLIC_KEY_EXPONENT, publicKey.getPublicExponent().toString());
+
         return result;
     }
 
